@@ -1,0 +1,147 @@
+
+openapi: 3.0.0
+info:
+  title: Retail API
+  description: Edge services 
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8181'
+    description: Local dev server
+paths:
+  /levelups/customerId:
+    get:
+      summary: Retrieves details of all levelups with the customer id
+      responses:
+        '200':
+          description: list of all the levelups
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LevelUp'
+  /invoices:
+    post:
+      summary: Add an invoice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Invoice'
+      responses:
+        '200':
+          description: the added invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+        '400':
+          description: Bad Request
+        '422':
+          description: Missing a field
+        '415':
+          description: Unsupported media type, the request body should be json
+    get:
+      summary: Retrieves details of all invoices
+      responses:
+        '200':
+          description: list of all the invoices
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /invoices:
+    get:
+      summary: Retrieves details of an invoice
+      responses:
+        '200':
+          description: details of the invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /invoices/customer:
+    get:
+      summary: Retrieves details of an invoice by customer if
+      responses:
+        '200':
+          description: details of the invoice
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Invoice'
+  /products:
+    get:
+      summary: Retrieves details of a product by id
+      responses:
+        '200':
+          description: details of the product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/inventory:
+    get:
+      summary: Retrieves a list of products in inventory
+      responses:
+        '200':
+          description: list of products
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+  /products/invoice:
+    get:
+      summary: Retrieves details of a product by invoice id
+      responses:
+        '200':
+          description: details of the product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    LevelUp:
+      type: object
+      items:
+        type: object
+        properties:
+          levelUpId:
+            type: integer
+          customerId:
+            type: integer
+          points:
+            type: integer
+          memberDate:
+            type: string
+    Invoice:
+      type: object
+      items:
+        type: object
+        properties:
+          invoiceId:
+            type: integer
+          customerId:
+            type: integer
+          purchaseDate:
+            type: string
+          invoiceItems:
+            type: object
+    Product:
+      type: object
+      items:
+        type: object
+        properties:
+          productId:
+            type: integer
+          productName:
+            type: string
+          productDescription:
+            type: string
+          listPrice:
+            type: integer
+          unitCost:
+            type: integer
+
+  
+  
